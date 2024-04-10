@@ -104,6 +104,6 @@ public class JobController {
     @GetMapping("/generate/{documentType}/{jobId}")
     public Result generateJobAd(@PathVariable String documentType, @PathVariable Long jobId) {
         String generatedJobAd = this.jobService.generate(documentType, jobId);
-        return new Result(true, StatusCode.SUCCESS, "Summarize Success", generatedJobAd);
+        return new Result(true, StatusCode.SUCCESS, "Generation Success", generatedJobAd);
     }
 }

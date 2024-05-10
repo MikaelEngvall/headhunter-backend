@@ -6,9 +6,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import se.sprinta.headhunterbackend.system.exception.EmailAlreadyExistsException;
 import se.sprinta.headhunterbackend.system.exception.ObjectNotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This class is responsible for handling business logic related to User.
@@ -58,19 +60,38 @@ public class UserService implements UserDetailsService {
 
     /**
      * This method is used to update a user.
-     * It finds the user by email and updates the username and roles.
-     * Any double quotes in the roles are being removed by the logic.
+     * It finds the user by email and updates the username (and roles NOT YET).
      */
     public User update(String email, User update) {
         User foundUser = this.userRepository.findByEmail(email)
                 .orElseThrow(() -> new ObjectNotFoundException("user", email));
 
-        foundUser.setUsername(update.getUsername());
+        // Update the email if provided and not empty
+        if (update.getEmail() != null && !update.getEmail().isEmpty()) {
+            // Check if the new email is not already taken
+            if (!update.getEmail().equals(email)) {
+                Optional<User> existingUserWithEmail = this.userRepository.findByEmail(update.getEmail());
+                if (existingUserWithEmail.isPresent()) {
+                    throw new EmailAlreadyExistsException("Email is already in use: " + update.getEmail());
+                }
+                foundUser.setEmail(update.getEmail());
+            }
+        }
 
-        String rolesFixed = update.getRoles().replace("\"", "");
-        foundUser.setRoles(rolesFixed);
+        // Update the username if provided and not empty
+        if (update.getUsername() != null && !update.getUsername().isEmpty()) {
+            foundUser.setUsername(update.getUsername());
+        }
+
+        // Update the roles if provided and not empty
+        if (update.getRoles() != null && !update.getRoles().isEmpty()) {
+            foundUser.setRoles(update.getRoles());
+        }
+
+        // Save the updated user
         return this.userRepository.save(foundUser);
     }
+
 
     /**
      * This method is used to delete a user.

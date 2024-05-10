@@ -1,6 +1,6 @@
 package se.sprinta.headhunterbackend;
 
-// Importing necessary libraries
+// Importing the necessary libraries
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.SpringApplication;

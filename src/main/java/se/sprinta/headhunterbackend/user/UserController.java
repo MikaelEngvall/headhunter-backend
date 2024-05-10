@@ -88,6 +88,7 @@ public class UserController {
         return new Result(true, StatusCode.SUCCESS, "Add Success", addedUserDto);
     }
 
+
     /**
      * This method handles the PUT request to update a user.
      * It uses @PutMapping to map the HTTP PUT requests onto this method.

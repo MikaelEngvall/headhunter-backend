@@ -12,7 +12,7 @@ import se.sprinta.headhunterbackend.system.StatusCode;
 
 @RestController
 @RequestMapping("${api.endpoint.base-url-users}")
-@CrossOrigin({"http://127.0.0.1:3000", "http://127.0.0.1:5500", "http://localhost:3000", "https://headhunterwithtailwind.onrender.com/"})
+@CrossOrigin({"http://127.0.0.1:3000", "http://127.0.0.1:5500", "http://localhost:3000", "https://headhuntertailwindcss.onrender.com", "https://headhunter-sidebare-final.onrender.com"})
 public class AuthController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);

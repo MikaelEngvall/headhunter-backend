@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("${api.endpoint.base-url-jobs}")
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin({"http://127.0.0.1:3000", "http://127.0.0.1:5500", "http://localhost:3000", "https://headhuntertailwindcss.onrender.com", "https://headhunter-sidebare-final.onrender.com"})
 public class JobController {
 
     private final JobService jobService;
